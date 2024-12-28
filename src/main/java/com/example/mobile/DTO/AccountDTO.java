@@ -8,6 +8,9 @@ import jakarta.persistence.Id;
 import java.time.LocalDate;
 
 public class AccountDTO {
+
+
+    private Long accountId;
     private String address;
     private String fullName;
     private LocalDate birthday;
@@ -21,7 +24,13 @@ public class AccountDTO {
     public void setStreakCount(int streakCount) {
         this.streakCount = streakCount;
     }
+    public Long getAccountId() {
+        return accountId;
+    }
 
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
+    }
 
 
     public String getImage() {

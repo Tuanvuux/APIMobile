@@ -1,5 +1,5 @@
 package com.example.mobile.controller;
-import com.example.mobile.DTO.AccountDTO;
+import com.  example.mobile.DTO.AccountDTO;
 import com.example.mobile.entity.Account;
 import com.example.mobile.repository.AccountRepository;
 import com.example.mobile.service.LoginService;
@@ -32,6 +32,7 @@ public class LoginController {
         int streakCount = loginService.updateLoginHistory(account.getAccountId());
 
         AccountDTO accountDTO = new AccountDTO();
+        accountDTO.setAccountId(account.getAccountId());
         accountDTO.setFullName(account.getFullName());
         accountDTO.setAddress(account.getAddress());
         accountDTO.setBirthday(account.getBirthday());

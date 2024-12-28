@@ -9,6 +9,7 @@ import com.example.mobile.repository.VocabRepository;
 import com.example.mobile.service.LearnStatsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -26,14 +27,17 @@ public class LearnHistoryController {
     VocabRepository vocabRepository;
 
     @PostMapping("/vocabLearn")
-    public HttpStatus saveLearnHistory(@RequestBody LearnHistory learnHistory) {
+    public boolean saveLearnHistory(@RequestBody LearnHistory learnHistory) {
         LearnHistory historyExits = learnHistoryRepository.findByAccountIdAndVocabId(learnHistory.getAccountId(), learnHistory.getVocabId());
         if (historyExits == null) {
             learnHistoryRepository.save(learnHistory);
-            return HttpStatus.OK;
+            return true;  // Lưu thành công
         }
-        return HttpStatus.OK;
+        return false;  // Lịch sử học đã tồn tại
     }
+
+
+
 
     @GetMapping("/total/{accountId}")
     public long getTotalLearnedVocab(@PathVariable long accountId) {
@@ -52,6 +56,10 @@ public class LearnHistoryController {
             topicLearnedStatsDTOList.add(topicLearnedStatsDTO);
         }
         return topicLearnedStatsDTOList;
+    }
+    @GetMapping("/vocabLearnedByTopic")
+    public List<Vocab> getLearnedVocabByTopicAndAccount(@RequestParam long accountId, @RequestParam long topicId) {
+        return vocabRepository.findLearnedVocabByAccountIdAndTopicId(accountId, topicId);
     }
 
 }

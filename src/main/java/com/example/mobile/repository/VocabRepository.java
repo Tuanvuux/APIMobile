@@ -22,4 +22,13 @@ public interface VocabRepository extends JpaRepository<Vocab, Long> {
     long countByTopicId(Long topicId);
 
     long count();
+    @Query("""
+        SELECT v 
+        FROM Vocab v 
+        WHERE v.topicId = :topicId 
+          AND v.vocabId IN (SELECT lh.vocabId FROM LearnHistory lh WHERE lh.accountId = :accountId)
+    """)
+    List<Vocab> findLearnedVocabByAccountIdAndTopicId(@Param("accountId") Long accountId, @Param("topicId") Long topicId);
+
+
 }

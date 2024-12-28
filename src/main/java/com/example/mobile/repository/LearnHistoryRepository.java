@@ -24,4 +24,5 @@ public interface LearnHistoryRepository extends JpaRepository<LearnHistory, Long
           AND l.vocabId IN (SELECT v.vocabId FROM Vocab v WHERE v.topicId = :topicId)
     """)
     Long countLearnedWordsByAccountAndTopic(@Param("accountId") Long accountId, @Param("topicId") Long topicId);
+
 }

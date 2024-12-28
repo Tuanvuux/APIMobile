@@ -1,14 +1,14 @@
 package com.example.mobile.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
+import org.hibernate.annotations.Nationalized;
 
 @Entity
 public class Vocab {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonProperty("vocabId")
     private int vocabId;
     private String vocab;
     private String meaning;
